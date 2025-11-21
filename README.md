@@ -21,7 +21,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 ---
 
 ## Estructura del Repositorio
-
+```
 /
 ├── arduino/
 │   └── Código para el módulo AD933:
@@ -41,7 +41,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 │       • Interfaz modular para control del sistema
 │
 └── README.md
-
+```
 ---
 
 ## Funcionamiento del Sistema
