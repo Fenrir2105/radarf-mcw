@@ -78,6 +78,7 @@ Sistema de procesamiento en tiempo real para radar FMCW (Frequency Modulated Con
 | **Signal Processing** | `core/signal_processing.py` | Algoritmos FFT y cálculos físicos |
 | **Packet Parser** | `hardware/packet_parser.py` | Decodificación del protocolo serial |
 | **Serial Reader** | `hardware/serial_reader.py` | Lectura asíncrona de puertos COM |
+|*Display Writer*|`hardware/display_writer.py`| Envio e datos calculados al OLED|
 | **Radar Processor** | `processing/radar_processor.py` | Procesamiento I/Q y detección |
 | **Plotter** | `visualization/plotter.py` | Gráficas en tiempo real |
 | **Main** | `main.py` | Orquestador del sistema |
@@ -87,7 +88,7 @@ Sistema de procesamiento en tiempo real para radar FMCW (Frequency Modulated Con
 ## Requisitos
 
 ### Hardware
-- Radar FMCW con salida I/Q separada
+- Salida I/Q separada, de antena radar.
 - 2 puertos seriales USB (COM3 y COM5 por defecto)
 - Sistema operativo: Windows
 
@@ -105,8 +106,8 @@ pyserial >= 3.5
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/radar-fmcw-iq.git
-cd radar-fmcw-iq
+git clone https://github.com/Fenrir2105/radarf-mcw
+cd radarf-mcw
 ```
 
 ### 2. Crear entorno virtual
@@ -136,21 +137,33 @@ Edita `config/radar_config.py` para ajustar parámetros:
 ```python
 @dataclass
 class RadarConfig:
+    """Configuración centralizada del sistema FMCW"""
     # Parámetros del radar
-    Fs: float = 20000           # Hz - Frecuencia de muestreo
-    N: int = 128                # Muestras por rampa
-    B: float = 200e6            # Hz - Ancho de banda (200 MHz)
+    Fs: float = 40000           # Hz - Frecuencia de muestreo
+    N: int = 256                # Número de muestras por rampa
+    B: float = 250e6            # Hz - Ancho de banda
     c: float = 3e8              # m/s - Velocidad de la luz
+    fc: float = 24e9            # Hz - Frecuencia central de la antena
     
-    # Puertos seriales (AJUSTAR SEGÚN TU SISTEMA)
-    port_I: str = "COM3"        # Canal I
-    port_Q: str = "COM5"        # Canal Q
+    # Puertos seriales
+    port_I: str = "COM5"
+    port_Q: str = "COM8"
+    port_display: str = "COM6"  # Puerto para Arduino/OLED
     baudrate: int = 115200
     timeout: float = 2.0
+    baudrate_display: int = 115200        # Baudrate típico
     
-    # Procesamiento
-    N_SAMPLES: int = 200        # Muestras por paquete serial
-    velocity_threshold: float = 0.01  # m/s (umbral estático)
+    # Parámetros de procesamiento
+    N_SAMPLES: int = 400
+    velocity_threshold: float = 0.01  # m/s para detectar movimiento
+    samples_per_ramp = 256 # Muestras a tomar para el procesamiento en cada rampa
+    
+    # Tamaños de colas
+    queue_size: int = 5
+
+    # Display
+    enable_display: bool = True  # Habilitar/deshabilitar salida a OLED
+  
 ```
 
 ### Identificar puertos seriales
@@ -160,13 +173,6 @@ class RadarConfig:
 # PowerShell
 Get-WmiObject Win32_SerialPort | Select-Object Name,DeviceID
 ```
-
-**Linux/Mac:**
-```bash
-ls /dev/tty.*       # Mac
-ls /dev/ttyUSB*     # Linux
-```
-
 ---
 
 ## Uso
@@ -266,6 +272,8 @@ donde K = B/T (tasa de cambio de frecuencia)
 **Velocidad:**
 ```
 v = (f_down - f_up)* c / (4 * f)
+
+donde f (frecuencia central de la antena)
 ```
 
 **Sentido:**
@@ -312,6 +320,7 @@ radar_system/
 ├── hardware/
 │   ├── packet_parser.py         # PacketParser (protocolo serial)
 │   └── serial_reader.py         # SerialChannelReader (threads)
+|   └── display_writer.py        # Envio de datos al oled (protocolo serial)
 │
 ├── processing/
 │   └── radar_processor.py       # RadarProcessor (combina I/Q)
@@ -334,11 +343,11 @@ El sistema genera una ventana con 6 gráficas:
 │   Señal I/Q Completa (temporal)  │                 │
 │   [Up-chirp | Down-chirp]        │   Panel de      │
 ├─────────────────┬────────────────┤   Resultados    │
-│  Diagrama I/Q   │  Diagrama I/Q  │   - Frecuencias │
-│   (Up-chirp)    │  (Down-chirp)  │   - Distancia   │
-├─────────────────┼────────────────┤   - Velocidad   │
 │   FFT Compleja  │  FFT Compleja  │   - Dirección   │
 │   (Up-chirp)    │  (Down-chirp)  │                 │
+├─────────────────┼────────────────┤   - Velocidad   │
+│  Diagrama I/Q   │  Diagrama I/Q  │   - Frecuencias │
+│   (Up-chirp)    │  (Down-chirp)  │   - Distancia   │
 └─────────────────┴────────────────┴─────────────────┘
 ```
 
@@ -351,65 +360,6 @@ El sistema genera una ventana con 6 gráficas:
    - 🟢 Verde: Estático
    - 🔴 Rojo: Acercándose
    - 🔵 Cyan: Alejándose
-
----
-
-## Troubleshooting
-
-### Error: "No se pudo abrir COM3"
-
-**Causa**: Puerto ocupado o no existe
-
-**Solución**:
-```bash
-# Verificar puertos disponibles
-# Windows: Device Manager → Ports (COM & LPT)
-# Linux: ls /dev/ttyUSB*
-
-# Ajustar en config/radar_config.py
-port_I: str = "COM4"  # Cambiar según tu sistema
-```
-
-### Error: "Queue llena"
-
-**Causa**: Procesamiento más lento que adquisición
-
-**Solución**:
-```python
-# En config/radar_config.py
-queue_size: int = 10  # Aumentar de 5 a 10
-```
-
-### No se visualizan gráficas
-
-**Causa**: Backend de matplotlib no interactivo
-
-**Solución**:
-```bash
-# Instalar backend TkInter
-sudo apt-get install python3-tk  # Linux
-# o usar otro backend en visualization/plotter.py:
-import matplotlib
-matplotlib.use('TkAgg')
-```
-
-### Frecuencias detectadas = 0 Hz
-
-**Causa**: Señal sin objeto o ruido puro
-
-**Verificar**:
-1. Conexiones de hardware (antenas, cables)
-2. Alimentación del radar
-3. Objeto dentro del rango de detección
-
-### Valores erráticos de distancia/velocidad
-
-**Causa**: Desincronización entre canales I/Q
-
-**Solución**:
-- Verificar trigger común en hardware
-- Reducir `timeout` en configuración
-- Revisar integridad de paquetes seriales
 
 ---
 
