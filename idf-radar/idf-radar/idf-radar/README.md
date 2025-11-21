@@ -32,6 +32,7 @@ idf-radar/
 │   └── config.h       # Configuraciones generales del sistema
 │
 └── CMakeLists.txt
+```
 ---
 ## Funcionamiento general
 1. Inicialización
