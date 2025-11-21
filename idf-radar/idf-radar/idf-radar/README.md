@@ -35,7 +35,7 @@ idf-radar/
 ```
 ---
 ## Funcionamiento general
-	1. Inicialización
+1. Inicialización:
 El sistema configura los periféricos en el siguiente orden:
 
 - Configuración del puerto UART.
@@ -46,7 +46,7 @@ El sistema configura los periféricos en el siguiente orden:
 
 - Creación del handle del ADC.
 
-	2. Bucle principal
+2. Bucle principal:
 El ESP32 entra en un ciclo infinito de espera y captura:
 
 - Espera flanco de subida → Inicia captura → Envía `TYPE_RISING_EDGE`.
