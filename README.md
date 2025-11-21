@@ -12,7 +12,7 @@ Carrera de Ingeniería en Telecomunicaciones
 
 ---
 
-## 🛰️ Descripción General
+## Descripción General
 
 Sistema FMCW Radar I/Q - Procesamiento Modular es un proyecto académico que implementa un radar FMCW (Frequency Modulated Continuous Wave) capaz de realizar procesamiento en tiempo real para la detección de distancia, velocidad y dirección de objetos mediante análisis espectral de señales complejas I/Q.
 
@@ -20,7 +20,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 
 ---
 
-## 📂 Estructura del Repositorio
+## Estructura del Repositorio
 
 /
 ├── arduino/
@@ -44,7 +44,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 
 ---
 
-## ⚙️ Funcionamiento del Sistema
+## Funcionamiento del Sistema
 
 1. **Generación de señal FMCW (Arduino + AD933)**  
    - Se genera una rampa triangular que modula en frecuencia la señal transmitida.
@@ -64,7 +64,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - Arduino (control del AD933)
 - ESP32 con ESP-IDF (adquisición de señales I/Q)
@@ -76,7 +76,7 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
 
 ---
 
-## 📡 Objetivos del Proyecto
+## Objetivos del Proyecto
 
 - Implementar un sistema FMCW funcional a nivel académico.
 - Comprender el procesamiento I/Q y su aplicación para detección de movimiento.
@@ -84,11 +84,10 @@ El sistema combina hardware embebido (Arduino y ESP32) con un módulo de procesa
   - Generación del chirp
   - Adquisición de señales I/Q
   - Procesamiento digital
-- Permitir futuras extensiones como beamforming.
 
 ---
 
-## 🚀 Cómo Empezar
+## Cómo Empezar
 
 ### 1. Arduino
 Carga el código del directorio `arduino/` en el módulo encargado del AD933.
