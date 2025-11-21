@@ -1,0 +1,120 @@
+MIT License
+
+Copyright (c) 2025 [Tu Nombre Completo]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Explicación de la Licencia MIT
+
+Esta licencia te permite:
+
+**Uso comercial**: Puedes usar este software en proyectos comerciales
+**Modificación**: Puedes modificar el código como desees
+**Distribución**: Puedes distribuir el software original o modificado
+**Uso privado**: Puedes usar el software de forma privada
+**Sublicenciar**: Puedes sublicenciar bajo términos compatibles
+
+**Condiciones:**
+- Debes incluir el aviso de copyright y esta licencia en todas las copias
+- El software se proporciona "tal cual", sin garantías de ningún tipo
+
+**Limitaciones:**
+- El autor no es responsable por daños derivados del uso del software
+- No hay garantía de funcionamiento o idoneidad para un propósito particular
+
+---
+
+## Atribución Recomendada
+
+Si utilizas este proyecto en tu trabajo, agradeceríamos que lo menciones:
+
+```
+Sistema FMCW Radar I/Q
+Autor: [Tu Nombre]
+GitHub: https://github.com/tu-usuario/radar-fmcw-iq
+Licencia: MIT
+```
+
+---
+
+## Dependencias y Sus Licencias
+
+Este proyecto utiliza las siguientes bibliotecas de código abierto:
+
+| Biblioteca | Versión | Licencia | Uso |
+|------------|---------|----------|-----|
+| NumPy | ≥1.20.0 | BSD-3-Clause | Procesamiento numérico |
+| Matplotlib | ≥3.3.0 | PSF-based | Visualización de datos |
+| PySerial | ≥3.5 | BSD-3-Clause | Comunicación serial |
+
+Todas estas licencias son compatibles con MIT y permiten uso comercial.
+
+---
+
+## Cómo Usar Esta Licencia
+
+### Para usuarios del software:
+
+Simplemente incluye este archivo LICENSE en tu proyecto cuando uses o distribuyas el código.
+
+### Para contribuyentes:
+
+Al enviar un Pull Request, aceptas que tus contribuciones se licencien bajo los mismos términos MIT.
+
+---
+
+## Preguntas Frecuentes sobre la Licencia
+
+**¿Puedo usar este código en un proyecto comercial?**
+Sí, puedes usarlo libremente en productos comerciales sin pagar regalías.
+
+**¿Debo compartir mis modificaciones?**
+No, no estás obligado a compartir tus modificaciones (a diferencia de GPL).
+
+**¿Puedo cambiar la licencia?**
+Puedes relicenciar TU versión modificada, pero debes mantener el aviso de copyright original.
+
+**¿Tengo que dar crédito al autor?**
+Debes incluir el aviso de copyright en tu código, pero no necesitas mencionar al autor en tu producto final.
+
+**¿Qué pasa si el software causa daños?**
+El autor no asume responsabilidad. Usas el software bajo tu propio riesgo.
+
+---
+
+## Licencias Alternativas
+
+Si necesitas términos diferentes, considera estas alternativas:
+
+- **Apache 2.0**: Similar a MIT, pero con protección explícita de patentes
+- **GPL v3**: Requiere que derivados también sean open source
+- **BSD 3-Clause**: Similar a MIT con cláusula adicional sobre endorsement
+- **Unlicense**: Dominio público completo, sin restricciones
+
+---
+
+## Contacto Legal
+
+Para consultas legales sobre esta licencia:
+- Email: tu.email@example.com
+- GitHub Issues: https://github.com/tu-usuario/radar-fmcw-iq/issues
+
+**Nota**: Este no es asesoramiento legal. Consulta con un abogado para situaciones específicas.
